@@ -19,7 +19,6 @@ public class ErraiScaffoldPlugin implements Plugin {
     @Inject
     private Event<AdvertiseGenProfile> event;
 
-
     public void init(@Observes PostStartup postStartup) {
         URL errai_cdi_fpk = getClass().getClassLoader()
                 .getResource("org/jboss/errai/forge/templates/ErraiCDI.fpk");
