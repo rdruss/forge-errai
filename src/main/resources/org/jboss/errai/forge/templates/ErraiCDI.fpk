@@ -819,7 +819,7 @@ public class @{projectClassName}Service \{
     </servlet-mapping>
 </web-app>
 }
-++@{baseDirectory}/jboss6/jboss-web.xml:{
+++@{baseDirectory}/src/jboss6/jboss-web.xml:{
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
     <context-root>org.wfktest-app</context-root>
