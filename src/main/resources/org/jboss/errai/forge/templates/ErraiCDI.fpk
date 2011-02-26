@@ -28,7 +28,7 @@
 
     <groupId>@{packageName}</groupId>
     <artifactId>@{projectClassName}</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
@@ -52,6 +52,22 @@
             <groupId>org.jboss.errai</groupId>
             <artifactId>errai-bus</artifactId>
             <version>\$$\{errai.version\}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.errai</groupId>
+            <artifactId>errai-ioc</artifactId>
+            <version>\$$\{errai.version\}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.inject</groupId>
+                    <artifactId>javax.inject</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.annotation</groupId>
+                    <artifactId>jsr250-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -114,12 +130,14 @@
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
             <version>\$$\{weld.version\}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
             <version>\$$\{weld.version\}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -350,95 +368,95 @@
     <build>
         <outputDirectory>war/WEB-INF/classes</outputDirectory>
 
-            <resources>
-                <resource>
-                    <directory>src/main/java</directory>
-                </resource>
-            </resources>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+        </resources>
 
-            <plugins>
-                <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-                <version>\$$\{gwt.maven\}</version>
+        <plugins>
+            <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>\$$\{gwt.maven\}</version>
+            <configuration>
+                <inplace>true</inplace>
+                <logLevel>TRACE</logLevel>
+                <runTarget>@{projectName}.html</runTarget>
+                <warSourceDirectory>war</warSourceDirectory>
+                <extraJvmArgs>-Xmx512m -DDEBUG</extraJvmArgs>
+                <soyc>false</soyc>
+                <webXml>src/jetty/web.xml</webXml>
+                <server>org.jboss.errai.cdi.server.gwt.JettyLauncher</server>
+            </configuration>
+            <executions>
+                <execution>
+                <goals>
+                    <goal>resources</goal>
+                    <goal>compile</goal>
+                </goals>
+                </execution>
+            </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1-beta-1</version>
                 <configuration>
-                    <inplace>true</inplace>
-                    <logLevel>TRACE</logLevel>
-                    <runTarget>App.html</runTarget>
                     <warSourceDirectory>war</warSourceDirectory>
-                    <extraJvmArgs>-Xmx512m -DDEBUG</extraJvmArgs>
-                    <soyc>false</soyc>
+                    <webappDirectory>war</webappDirectory>
                     <webXml>src/jetty/web.xml</webXml>
-                    <server>org.jboss.errai.cdi.server.gwt.JettyLauncher</server>
                 </configuration>
-                <executions>
-                    <execution>
-                    <goals>
-                        <goal>resources</goal>
-                        <goal>compile</goal>
-                    </goals>
-                    </execution>
-                </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1-beta-1</version>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.2</version>
                     <configuration>
-                        <warSourceDirectory>war</warSourceDirectory>
-                        <webappDirectory>war</webappDirectory>
-                        <webXml>src/jetty/web.xml</webXml>
-                    </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>2.2</version>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.2</version>
-                        <executions>
-                            <execution>
-                                <id>clean.war</id>
-                                <phase>clean</phase>
-                                <configuration>
-                                <tasks>
-                                    <!--
-                                        The gwt-maven-plugin use the war source folder
-                                        as it's build directory. We need to cleanup after we'd run
-                                        the plugin and remove all GWT related artifacts that are required
-                                        to run the hosted mode.
-                                    -->
-                                    <delete dir="war/WEB-INF/classes"/>
-                                    <delete dir="war/WEB-INF/lib"/>
-                                    <delete dir="war/META-INF"/>
-                                    <delete file="war/WEB-INF/web.xml"/>
-                                    <delete dir="war/app"/>
-                                    <delete dir="target"/>
-
-                                    <copy file="src/\$$\{webDescriptor\}/web.xml" toDir="war/WEB-INF"/>
-                                </tasks>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
+                        <skip>true</skip>
                     </configuration>
                 </plugin>
-            </plugins>
-        </build>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.2</version>
+                    <executions>
+                        <execution>
+                            <id>clean.war</id>
+                            <phase>clean</phase>
+                            <configuration>
+                            <tasks>
+                                <!--
+                                    The gwt-maven-plugin use the war source folder
+                                    as it's build directory. We need to cleanup after we'd run
+                                    the plugin and remove all GWT related artifacts that are required
+                                    to run the hosted mode.
+                                -->
+                                <delete dir="war/WEB-INF/classes"/>
+                                <delete dir="war/WEB-INF/lib"/>
+                                <delete dir="war/META-INF"/>
+                                <delete file="war/WEB-INF/web.xml"/>
+                                <delete dir="war/app"/>
+                                <delete dir="target"/>
+
+                                <copy file="src/\$$\{webDescriptor\}/web.xml" toDir="war/WEB-INF"/>
+                            </tasks>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <!-- Repositories -->
     <repositories>
