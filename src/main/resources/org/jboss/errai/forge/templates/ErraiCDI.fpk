@@ -7,7 +7,7 @@
 
 	var projectName = $arg[0];
 	var projectClassName = projectName.substring(0, 1).toUpperCase() + projectName.substring(1);
-	var packageName;
+	varpackageName;
 	if ($arg.length == 2) {
 		packageName = $arg[1];
 	}
@@ -33,7 +33,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <errai.version>1.2-SNAPSHOT</errai.version>
+        <errai.version>1.2</errai.version>
         <errai-jms.version>1.1-SNAPSHOT</errai-jms.version>
         <gwt.version>2.1.1</gwt.version>
         <hsqldb.version>1.8.0.7</hsqldb.version>
