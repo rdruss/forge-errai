@@ -7,7 +7,7 @@
 
 	var projectName = $arg[0];
 	var projectClassName = projectName.substring(0, 1).toUpperCase() + projectName.substring(1);
-	varpackageName;
+	var packageName;
 	if ($arg.length == 2) {
 		packageName = $arg[1];
 	}
