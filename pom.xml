@@ -10,22 +10,22 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
+            <groupId>org.jboss.forge</groupId>
             <artifactId>forge-shell</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
+            <groupId>org.jboss.forge</groupId>
             <artifactId>forge-shell-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-scaffold</artifactId>
+            <groupId>org.jboss.forge</groupId>
+            <artifactId>forge-scaffold-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -33,8 +33,8 @@
 
     <repositories>
         <repository>
-            <id>codehaus</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <id>jboss.org</id>
+            <url>http://repository.jboss.org/</url>
             <layout>default</layout>
             <releases>
                 <enabled>false</enabled>

@@ -1,8 +1,8 @@
 package org.jboss.errai.forge;
 
-import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
-import org.jboss.seam.forge.shell.events.PostStartup;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.forge.scaffold.events.AdvertiseGenProfile;
+import org.jboss.forge.shell.events.PostStartup;
+import org.jboss.forge.shell.plugins.Plugin;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
