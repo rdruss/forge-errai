@@ -33,8 +33,9 @@
 
     <repositories>
         <repository>
-            <id>jboss.org</id>
-            <url>http://repository.jboss.org/</url>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
             <layout>default</layout>
             <releases>
                 <enabled>false</enabled>
@@ -43,6 +44,18 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>codehaus</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
     </repositories>
 
     <distributionManagement>
